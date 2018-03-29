@@ -81,91 +81,56 @@ def readMAGz():
 
     return MAG_comb if MAG_comb < 32768 else MAG_comb - 65536
 
-# Arrays for the 3 axis orientation (pitch, roll, yaw).
-
-oriX = []
-oriY = []
-oriZ = []
-
-accX = []
-accY = []
-accZ = []
-
-magX = []
-magY = []
-magZ = []
 
 # Processing.
-for i in range (10):
 
-    oriX.append(readGYRx())
-    oriY.append(readGYRy())
-    oriZ.append(readGYRz())
+while True:
 
-    accX.append(readACCx())
-    accY.append(readACCy())
-    accZ.append(readACCz())
+    oriX = 0.070 * readGYRx()
+    oriY = 0.070 * readGYRy()
+    oriZ = 0.070 * readGYRz()
 
-    magX.append(readMAGx())
-    magY.append(readMAGy())
-    magZ.append(readMAGz())
+    accX = 0.732 * readACCx()
+    accY = 0.732 * readACCy()
+    accZ = 0.732 * readACCz()
+
+    magX = 0.48 * readMAGx()
+    magY = 0.48 * readMAGy()
+    magZ = 0.48 * readMAGz()
 
     time.sleep(1)
 
-# Converting the values.
-for i in range (10):
+# Display the values
 
-    oriX[i] = oriX[i] * 0.070
-    oriY[i] = oriY[i] * 0.070
-    oriZ[i] = oriZ[i] * 0.070
+    print "X-Axis of Rotation : %d" %oriX
+    print "Y-Axis of Rotation : %d" %oriY
+    print "Z-Axis of Rotation : %d\n" %oriZ
 
-    accX[i] = accX[i] * 0.732
-    accY[i] = accY[i] * 0.732
-    accZ[i] = accZ[i] * 0.732
+    print "Acceleration X : %d" %accX
+    print "Acceleration Y : %d" %accY
+    print "Acceleration Z : %d\n" %accZ
 
-    magX[i] = magX[i] * 0.48
-    magY[i] = magY[i] * 0.48
-    magZ[i] = magZ[i] * 0.48
+    print "Magnetometre X : %d" %magX
+    print "Magnetometre Y : %d" %magY
+    print "Magnetometre Z : %d\n" %magZ
 
 
-for i in range (10):
 
-    oriX[i] = round(oriX[i], 1)
-    oriY[i] = round(oriY[i], 1)
-    oriZ[i] = round(oriZ[i], 1)
-
-    print "X-Axis of Rotation : %d" %oriX[i]
-    print "Y-Axis of Rotation : %d" %oriY[i]
-    print "Z-Axis of Rotation : %d\n" %oriZ[i]
-
-    print "Acceleration X : %d" %accX[i]
-    print "Acceleration Y : %d" %accY[i]
-    print "Acceleration Z : %d\n" %accZ[i]
-
-    print "Magnetometre X : %d" %magX[i]
-    print "Magnetometre Y : %d" %magY[i]
-    print "Magnetometre Z : %d\n" %magZ[i]
-
-# the name of the file where the values will be written.
-#filename = "LSM9DS0.csv"
-
-#file = open(filename, 'w')
-
-#file.write(["oriX","oriY","oriZ","accX","accY","accZ","magX","magY","magZ"])
-
-#for i in range(10):
-
- #   file.write(str(oriX[i]) + ';' + str(oriY[i]) + ';' + str(oriZ[i]) +';\n' + str(accX[i]) +';' + str(accY[i]) + ';' + str(accZ[i]) + ';\n' + str(magX[i]) + ';' + str(magY[i]) + ';' + str(magZ[i]) + ';\n')
-
- #   file.close()
-
-now = time.strftime('%d-%m-%Y %H:%M:%S')
-with open('LSM9DS0data%s.csv' %now, 'a') as LSM9DS0:
-	filewriter = csv.writer(LSM9DS0, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    now = time.strftime('%d-%m-%Y_%H:%M:%S')
+    with open('LSM9DS0data%s.csv' %now, 'a') as LSM9DS0:
+        filewriter = csv.writer(LSM9DS0, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 	filewriter.writerow(['oriX', 'oriY', 'oriZ', 'accX', 'accY', 'accZ', 'magX', 'magY', 'magZ'])
 
-	for i in range (10):
- 		oriX[i] = readGYRx()
-		now = time.strftime('%d-%m-%Y %H:%M:%S')
-		filewriter.writerow([now, oriX[i]])
+        while True:
+ 		oriX = readGYRx()
+		oriY = readGYRy()
+		oriZ = readGYRz()
+		accX = readACCx()
+		accY = readACCy()
+		accZ = readACCz()
+		magX = readMAGx()
+		magY = readMAGy()
+		magZ = readMAGz()
+		now = time.strftime('%d-%m-%Y_%H:%M:%S')
+		filewriter.writerow([now,' %d' %oriX,' %d' %oriY,' %d' %oriZ,' %d' %accX,' %d' %accY,' %d' %accZ,' %d' %magX,' %d' %magY,' %d' %magZ])
 		time.sleep(1)
