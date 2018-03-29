@@ -116,21 +116,21 @@ while True:
 
 
 
-    now = time.strftime('%d-%m-%Y_%H:%M:%S')
-    with open('LSM9DS0data%s.csv' %now, 'a') as LSM9DS0:
+    Time = time.strftime('%d-%m-%Y_%H:%M:%S')
+    with open('LSM9DS0data%s.csv' %Time, 'a') as LSM9DS0:
         filewriter = csv.writer(LSM9DS0, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-	filewriter.writerow(['oriX', 'oriY', 'oriZ', 'accX', 'accY', 'accZ', 'magX', 'magY', 'magZ'])
+	filewriter.writerow(['Time', 'oriX', 'oriY', 'oriZ', 'accX', 'accY', 'accZ', 'magX', 'magY', 'magZ'])
 
         while True:
- 		oriX = readGYRx()
-		oriY = readGYRy()
-		oriZ = readGYRz()
-		accX = readACCx()
-		accY = readACCy()
-		accZ = readACCz()
-		magX = readMAGx()
-		magY = readMAGy()
-		magZ = readMAGz()
-		now = time.strftime('%d-%m-%Y_%H:%M:%S')
-		filewriter.writerow([now,' %d' %oriX,' %d' %oriY,' %d' %oriZ,' %d' %accX,' %d' %accY,' %d' %accZ,' %d' %magX,' %d' %magY,' %d' %magZ])
+ 		oriX = 0.070 * readGYRx()
+		oriY = 0.070 * readGYRy()
+		oriZ = 0.070 * readGYRz()
+		accX = 0.732 * readACCx()
+		accY = 0.732 * readACCy()
+		accZ = 0.732 * readACCz()
+		magX = 0.48 * readMAGx()
+		magY = 0.48 * readMAGy()
+		magZ = 0.48 * readMAGz()
+		Time = time.strftime('%d-%m-%Y_%H:%M:%S')
+		filewriter.writerow([Time,' %d' %oriX,' %d' %oriY,' %d' %oriZ,' %d' %accX,' %d' %accY,' %d' %accZ,' %d' %magX,' %d' %magY,' %d' %magZ])
 		time.sleep(1)
