@@ -17,21 +17,21 @@ bus.write_byte_data(0x1D, 0x26, 0x00) # registre de controle 7 XM
 def readGYRx():
     data0 = bus.read_byte_data(0x6B, 0x28)
     data1 = bus.read_byte_data(0x6B, 0x29)
-    gyr_combined = (data0 | data1 >>8)
+    gyr_combined = (data0 | data1 <<8)	#data1 MSB and data0 LSB
 
     return gyr_combined  if gyr_combined < 32768 else gyr_combined - 65536
 
 def readGYRy():
     data0 = bus.read_byte_data(0x6B, 0x2A)
     data1 = bus.read_byte_data(0x6B, 0x2B)
-    gyr_combined = (data0 | data1 >>8)
+    gyr_combined = (data0 | data1 <<8)
 
     return gyr_combined if gyr_combined < 32768 else gyr_combined - 65536
 
 def readGYRz():
     data0 = bus.read_byte_data(0x6B, 0x2C)
     data1 = bus.read_byte_data(0x6B, 0x2D)
-    gyr_combined = (data0 | data1 >>8)
+    gyr_combined = (data0 | data1 <<8)
 
     return gyr_combined if gyr_combined < 32768 else gyr_combined - 65536
 
@@ -40,21 +40,21 @@ def readGYRz():
 def readACCx():
     data0 = bus.read_byte_data(0x1D, 0x28)
     data1 = bus.read_byte_data(0x1D, 0x29)
-    ACC_comb = (data0 | data1 >>8)
+    ACC_comb = (data0 | data1 <<8)
 
     return ACC_comb  if ACC_comb < 32768 else ACC_comb - 65536
 
 def readACCy():
     data0 = bus.read_byte_data(0x1D, 0x2A)
     data1 = bus.read_byte_data(0x1D, 0x2B)
-    ACC_comb = (data0 | data1 >>8)
+    ACC_comb = (data0 | data1 <<8)
 
     return ACC_comb if ACC_comb < 32768 else ACC_comb - 65536
 
 def readACCz():
     data0 = bus.read_byte_data(0x1D, 0x2C)
     data1 = bus.read_byte_data(0x1D, 0x2D)
-    ACC_comb = (data0 | data1 >>8)
+    ACC_comb = (data0 | data1 <<8)
 
     return ACC_comb if ACC_comb < 32768 else ACC_comb - 65536
 
@@ -63,21 +63,21 @@ def readACCz():
 def readMAGx():
     data0 = bus.read_byte_data(0x1D, 0x08)
     data1 = bus.read_byte_data(0x1D, 0x09)
-    MAG_comb = (data0 | data1 >>8)
+    MAG_comb = (data0 | data1 <<8)
 
     return MAG_comb if MAG_comb < 32768 else MAG_comb - 65536
 
 def readMAGy():
     data0 = bus.read_byte_data(0x1D, 0x0A)
     data1 = bus.read_byte_data(0x1D, 0x0B)
-    MAG_comb = (data0 | data1 >>8)
+    MAG_comb = (data0 | data1 <<8)
 
     return MAG_comb if MAG_comb < 32768 else MAG_comb - 65536
 
 def readMAGz():
     data0 = bus.read_byte_data(0x1D, 0x0C)
     data1 = bus.read_byte_data(0x1D, 0x0D)
-    MAG_comb = (data0 | data1 >>8)
+    MAG_comb = (data0 | data1 <<8)
 
     return MAG_comb if MAG_comb < 32768 else MAG_comb - 65536
 
